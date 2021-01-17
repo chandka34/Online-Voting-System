@@ -7,8 +7,8 @@ const SingleUser = ({ User }) => {
       <p>{User.Last_name}</p>
       <p>{User.email}</p>
       <p>{User.phone_no}</p>
-      <p>{User.organization.organization_id}</p>
-      <p>{User.department.department_id}</p>
+      <p>{User.organization.organization_name}</p>
+      <p>{User.department.department_name}</p>
       <p>{User.role}</p>
       <hr />
     </Grid>

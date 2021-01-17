@@ -6,6 +6,7 @@ import Menu from './../Component/Menu'
 const NewOrganization = (props) => {
   const [organization_name, setUser] = React.useState("");
   const [organization_id, setId] = React.useState("");
+ const id= props.match.params.Auth_id
   return (
     <Grid container spacing={3}>
       <Grid item xs={12}>
@@ -39,10 +40,10 @@ const NewOrganization = (props) => {
           color="primary"
           onClick={(e) => {
             OrganizationService
-              .addorganization({ organization_name,organization_id})
+              .addorganization(id,{ organization_name,organization_id})
               .then((data) => {
                 console.log(data);
-                props.history.push("/Organization");
+                props.history.push("/Organization/"+id);
               })
               .catch((err) => {
                 console.log(err);

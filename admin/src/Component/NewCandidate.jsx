@@ -9,10 +9,11 @@ const NewCandidate = (props) => {
   const [email, setEmail] = React.useState("");
   const [phone_no, setPhone] = React.useState("");
   const [post, setPost] = React.useState("");
-  const [Symbol, setSymbol] = React.useState("");
+ 
   
   const dep_id = props.match.params.dep_id;
   const org_id =props.match.params.org_id;
+  const Auth_id = props.match.params.Auth_id
 
 
 
@@ -40,7 +41,7 @@ const NewCandidate = (props) => {
        
       </Grid>
      
-
+<form encType="multipart/form-data">
       <Grid item xs={3}></Grid>
       <Grid item xs={6}>   
       <h1>Add New Candidate</h1>
@@ -76,8 +77,6 @@ const NewCandidate = (props) => {
             setPost(e.target.value);
           }}
         />
-       
-
       </Grid>
       <Grid item xs={3}></Grid>
       <Grid item xs={3}></Grid>
@@ -87,16 +86,17 @@ const NewCandidate = (props) => {
           color="primary"
           onClick={(e) => {
             CandidateService
-              .addCandidate(org_id,dep_id,{ Name,phone_no,email,post})
+              .addCandidate(org_id,dep_id,Auth_id,{Name,phone_no,email,post})
               .then((data) => {
                 console.log(data);
-                props.history.push("/Candidates/"+org_id+"/"+dep_id);
+                props.history.push("/Candidates/"+org_id+"/"+dep_id+"/"+Auth_id);
               })
               .catch((err) => {
                 console.log(err);
                 toast.error(err.response.data.message, {
                   position: toast.POSITION.TOP_LEF});
               });
+            
           }}
         >
           Add New
@@ -104,7 +104,7 @@ const NewCandidate = (props) => {
         
         </Grid>
       
-      
+        </form>
     </Grid>
   );
 };

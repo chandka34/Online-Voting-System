@@ -29,11 +29,13 @@ const Departments = (props) => {
   const [Departments, setDepartments] = React.useState([]);
   const [openPopup, setOpenPopup] = React.useState(false)
   const id = props.match.params.id;
+  const Auth_id = props.match.params.Auth_id;
+
   console.log({message:id})
   const classes = useStyles();
   const getData = () => {
     DepartmentService
-      .getdepartments(id)
+      .getdepartments(id,Auth_id)
       .then((data) => {
         setDepartments(data);
       })
@@ -46,7 +48,7 @@ const Departments = (props) => {
   // console.log("Inside Departments Component");
   const handleNewDepartmentClick = () => {
     console.log(props);
-    props.history.push("/Department/New/" +id);
+    props.history.push("/Department/New/" +id+"/"+Auth_id);
   };
   return (
     <div className={classes.container}>

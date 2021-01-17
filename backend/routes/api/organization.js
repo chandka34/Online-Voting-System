@@ -7,22 +7,46 @@ var users= require('../../models/user')
 var organizations= require('../../models/organiztions')
 /* GET organization listing. */
 
-router.get('/:id', async(req, res)=> {
-    console.log(req.users);
+router.get('/:id/:Auth_id', async(req, res)=> {
+  if(req.params.Auth_id==1)
+  {
+    try{
   let organization = await organizations.find({_id: req.params.id});
-  return res.send(organization);
+  return res.send({message:'ok',organization});
+    }
+    catch{
+      return res.json({message:'Something Went Wrong Please try again'})
+    }
+  }
+  else{
+    return res.json({message:'Authentication Error'})
+  }
 });
 
 
 
 
-router.get('/', async(req, res)=> {
+router.get('/:Auth_id', async(req, res)=> {
+  if(req.params.Auth_id==1)
+  {
+    try{
   let organization = await organizations.find();
   return res.send(organization);
+    }
+    catch{
+      return res.json({message:'Something went wrong Please try again'})
+    }
+  }
+  else{
+    return res.jso({message:'Authentication Erro'})
+  }
 });
 // add organization
-router.post('/',validateOrganiations , async(req, res)=>
+router.post('/:Auth_id',validateOrganiations , async(req, res)=>
 {
+  if(req.params.Auth_id==1)
+  {
+    try{
     let org = await organizations.findOne({organization_id : req.body.organization_id});
     if (org) return res.status(400).json("organization with given id already exists");
     let organization = new organizations();
@@ -30,37 +54,54 @@ router.post('/',validateOrganiations , async(req, res)=>
     organization.organization_name= req.body.organization_name;
     await organization.save();
     return res.json({message:"Organization added successfully"});
-
+    }
+    catch{
+      return res.json({message:'Something Went Wrong Please try again'})
+    }
+  }
+  else{
+    return res.json({message:'Authentication Error'})
+  }
 });
 
 // get single record
-router.get('/:id', async(req, res)=>
+router.get('/:id/:Auth_id', async(req, res)=>
 {   
+  if(req.params.Auth_id==1)
+  {
     try{
     let organization = await organizations.find( {_id: req.params.id});
     if(!organization) return res.status(400).json({ message:"id not present"});
-    return res.json(organization);
+    return res.json({message:'ok',organization});
 }
     catch(err){
     return res.status(400).json({ message:"invalid id"});
       }
-
+    }
+    else{
+      return res.json({message:'Authentication Error'})
+    }
 });
 
 
 //delete organization
 
-router.delete('/:id', async(req, res)=>
+router.delete('/:id/:Auth_id', async(req, res)=>
 {   
+  if(req.params.Auth_id==1)
+  {
     try{
       
     let user = await organizations.deleteOne( {_id: req.params.id});
-    return res.json(user);
+    return res.json({message:'ok',user});
 }
     catch(err){
     return res.status(400).json("invalid Email");
       }
-
+    }
+    else{
+      return res.json({message:'Authentication Error'})
+    }
 });
       
 

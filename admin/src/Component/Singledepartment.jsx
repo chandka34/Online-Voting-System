@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import Menu from './../Component/Menu'
 const SingleDepartment = (props) => {
   const { Department, onDelete, history } = props;
+  const Auth_id= props.match.params.Auth_id
   console.log(props);
   return (
     <Grid item xs={12}>
@@ -19,7 +20,7 @@ const SingleDepartment = (props) => {
           color="secondary"
           onClick={(e) => {
             DepartmentService
-              .deletedepartment(Department._id)
+              .deletedepartment(Department._id,Auth_id)
               .then((data) => {
                 console.log(data);
                 onDelete();
@@ -35,7 +36,7 @@ const SingleDepartment = (props) => {
         variant="contained"
         color="secondary"
         onClick={(e) => {
-          history.push("/Candidates/"+ Department.organization_id+"/"+ Department._id);
+          history.push("/Candidates/"+ Department.organization_id+"/"+ Department._id+"/"+Auth_id);
           console.log({message:Department._id})
         }}
 

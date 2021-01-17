@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import Menu from './../Component/Menu'
 const SingleEvent = (props) => {
   const { Event, onDelete, history } = props;
+  const Auth_id=1;
   console.log(props);
   return (
     <Grid item xs={12}>
@@ -17,7 +18,7 @@ const SingleEvent = (props) => {
         color="primary"
         onClick={(e) => {
           console.log("navigate to update");
-          history.push("/Event/Update/" + Event._id);
+          history.push("/Event/Update/" + Event._id+"/"+Auth_id);
         }}
       >
         Edit
@@ -27,7 +28,7 @@ const SingleEvent = (props) => {
           color="secondary"
           onClick={(e) => {
             EventService
-              .deleteEvent(Event._id)
+              .deleteEvent(Event._id+"/"+Auth_id)
               .then((data) => {
                 console.log(data);
                 onDelete();

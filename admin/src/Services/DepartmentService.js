@@ -3,10 +3,10 @@ class departmentService extends GenericService {
   constructor() {
     super();
   }
-  adddepartment = (_id,data) => this.post("department/" +_id, data);
-  deletedepartment = (_id) => this.delete("department/" + _id);
-  updatedepartment = (_id, data) => this.put("department/" + _id, data);
-  getdepartments = (_id) => this.get("department/" +_id);
+  adddepartment = (_id,Auth_id,data) => this.post("department/" +_id+"/"+Auth_id,data);
+  deletedepartment = (_id,Auth_id) => this.delete("department/" + _id+"/"+Auth_id);
+  updatedepartment = (_id,Auth_id,data) => this.put("department/" + _id+"/"+Auth_id, data);
+  getdepartments = (_id,Auth_id) => this.get("department/" +_id+"/"+Auth_id);
   getSingleDepartment = (id) => this.get("department/" + id);
 }
 

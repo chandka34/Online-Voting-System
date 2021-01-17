@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 import Menu from './../Component/Menu'
 const SingleCandidate = (props) => {
   const { Candidate, onDelete, history } = props;
+  const Auth_id=1;
   console.log(props);
   return (
     <Grid item xs={6}>
@@ -18,7 +19,7 @@ const SingleCandidate = (props) => {
           color="secondary"
           onClick={(e) => {
             CandidateService
-              .deleteCandidate(Candidate._id)
+              .deleteCandidate(Candidate._id,Auth_id)
               .then((data) => {
                 console.log(data);
                 onDelete();

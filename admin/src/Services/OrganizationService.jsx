@@ -3,10 +3,10 @@ class organizationService extends GenericService {
   constructor() {
     super();
   }
-  addorganization = (data) => this.post("organization", data);
-  deleteorganization = (_id) => this.delete("organization/" + _id);
-  updateorganization = (_id, data) => this.put("organization/" + _id, data);
-  getorganizations = () => this.get("organization");
+  addorganization = (auth,data) => this.post("organization/"+auth, data);
+  deleteorganization = (_id,auth) => this.delete("organization/" + _id+"/"+auth);
+  updateorganization = (_id,auth,data) => this.put("organization/" + _id+"/"+auth,data);
+  getorganizations = (auth) => this.get("organization/"+auth);
   getSingleOrganization = (id) => this.get("organization/" + id);
 }
 

@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import Menu from './../Component/Menu'
 const SingleOrganization = (props) => {
   const { Organization, onDelete, history } = props;
+  const Auth_id=1;
   console.log(props);
   return (
     <Grid item xs={12}>
@@ -20,7 +21,7 @@ const SingleOrganization = (props) => {
           color="secondary"
           onClick={(e) => {
             OrganizationService
-              .deleteorganization(Organization._id)
+              .deleteorganization(Organization._id,Auth_id)
               .then((data) => {
                 console.log(data);
                 onDelete();
@@ -38,7 +39,7 @@ const SingleOrganization = (props) => {
         color="primary"
         onClick={(e) => {
          
-          history.push("/Department/" + Organization._id);
+          history.push("/Department/" + Organization._id+"/"+Auth_id);
         }}
 
       >
@@ -50,7 +51,7 @@ const SingleOrganization = (props) => {
       color="primary"
       onClick={(e) => {
        
-        history.push("/Candidates/" + Organization._id);
+        history.push("/Candidates/" + Organization._id+"/"+Auth_id);
       }}
 
     >
@@ -62,7 +63,7 @@ const SingleOrganization = (props) => {
     color="primary"
     onClick={(e) => {
      
-      history.push("/Post/"+ Organization._id);
+      history.push("/Post/"+ Organization._id+"/"+Auth_id);
     }}
 
   >

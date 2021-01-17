@@ -15,14 +15,30 @@ const DOMAIN = 'sandboxb9ebe4aaaaba4802aad4bb6132d2981c.mailgun.org';
 const mg = mailgun({apiKey: config.get('MAILGUN_APIKEY'), domain: DOMAIN});
 
 /* GET users listing. */
-router.get('/', async(req, res)=> {
-  let user = await users.find().populate('organizations','orgaization_id').populate('departments','department_id');
+router.get('/:Auth_id', async(req, res)=> 
+{
+  if(req.params.Auth_id==1)
+  {
+    try{
+  let user = await users.find().populate('organization').populate('department');
+  console.log(user)
   return res.json(user);
+    }
+    catch{
+      return res.json({message:'Something Went Wrong Please Try Again'})
+    }
+  }
+  else{
+    return res.json({message:'Authentication Error'})
+  }
 });
 // add user
 
-router.post('/register',validateusers, async(req, res)=>
+router.post('/register/:Auth_id',validateusers, async(req, res)=>
 {
+  if(req.params.Auth_id==1)
+  { 
+    try{
     var Users = await users.findOne({email : req.body.email});
    if (Users) return res.status(400).json({ message: 'User with given email already exists' });
     let org = await organizations.findOne({organization_id : req.body.organization_id});
@@ -73,13 +89,22 @@ router.post('/register',validateusers, async(req, res)=>
      
   }
 })
-
+    }
+catch{
+  return res.json({message:'Something Went Wrong Please Try Again'})
+}
+}
+else{
+  return res.json({message:'Authentication Error'})
+}
 
 });
 
 //activate user
-router.post('/ActivateAccount' , async(req, res)=>
+router.post('/ActivateAccount/:Auth_id' , async(req, res)=>
 {
+  if(req.params.Auth_id==1)
+  {
   try{
     var Users = await users.findOne({ActivationCode:req.body.ActivationCode});
     if (!Users) return res.status(400).json({ message: 'incorrect or expired code' }); 
@@ -106,7 +131,10 @@ router.post('/ActivateAccount' , async(req, res)=>
     {
       return res.status(400).send({ message: 'Unsuccessfull activation' })
     }
-
+  }
+  else{
+    return res.json({message:'Authentication Error'})
+  }
 });
 
 //Admin Login
@@ -127,34 +155,40 @@ router.post('/login', async(req,res) =>
     config.get('jwtPrivateKey')
   );;
 
-  return res.json({ message: 'Login Successfull' ,Users,token});
+  return res.json({ message: 'Login Successfull',Users,token});
 } 
 catch(err){
   return res.status(400).json({ message: 'Login Successfull' });
     }
 
 });
-router.get('/:email', async(req, res)=>
+
+
+router.get('/:email/:Auth_id', async(req, res)=>
 {   
+  if(req.params.Auth_id==1)
+  {
     try{
     let department = await users.find( {email: req.params.email});
     if(!department) return res.status(400).json("email not present");
-    return res.send(department);
+    return res.send({message:'okk',department});
 }
     catch(err){
     return res.status(400).json("invalid email");
       }
-
+    }
+    else{
+      return res.json({message:'Authentication Error'})
+    }
 });
 
 
 
 //forget password
-
-
-router.put('/forgetPassword', async(req, res)=>
+router.put('/forgetPassword/:Auth_id', async(req, res)=>
 {   
-  
+  if(req.params.Auth_id==1)
+  {
       try{
         const {email} = req.body;
       var Users = await users.findOne({email :email});
@@ -198,11 +232,17 @@ router.put('/forgetPassword', async(req, res)=>
     catch(err){
     return res.status(400).json({ message:"Unsuccessfull attempt"});
       }
-
+    }
+    else{
+      return res.json({message:'Authentication Error'})
+    }
 });
 //reset password
-router.put('/resetPassword', async(req, res)=>
+router.put('/resetPassword/:Auth_id', async(req, res)=>
 { 
+  if(req.params.Auth_id==1)
+  {
+    try{
   const {resetLink, newPass}= req.body;
   
     
@@ -221,15 +261,24 @@ router.put('/resetPassword', async(req, res)=>
       }
       else{
           return res.status(200).json({message:'Password has been changed successfully'})
-        
-     
       }
      })
+    }
+    catch{
+      return res.json({message:'Something Went Wrong Please Try Again'})
+    }
+  }
+  else{
+    return res.json({message:'Authentication Error'})
+  }
 });
 
 //updation
 
-router.put("/:id", validateusers, async (req, res) => {
+router.put("/:id/:Auth_id", validateusers, async (req, res) => 
+{
+  if(req.params.Auth_id==1)
+  {
   try{
   let user = await users.findById(req.params.id);
   var Users = await users.findOne({email : req.body.email});
@@ -254,6 +303,10 @@ router.put("/:id", validateusers, async (req, res) => {
  catch{
   return res.json({message:"unsuccessfull Updation"});
  }
+}
+else{
+  return res.json({message:'Authentictaion Error'})
+}
 });
 
 

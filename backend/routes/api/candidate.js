@@ -36,9 +36,11 @@ const upload = multer({
 });
 
 //get Single Candidate
-router.get('/single/:id', async(req, res)=> {
+router.get('/single/:id/:Auth_id', async(req, res)=> {
+  if(req.params.Auth_id==1)
+  {
  try{
-  let candidate = await candidates.findOne({_id:req.params.id})
+  let candidate = await candidates.find({_id:req.params.id}).populate('post');
   console.log(candidate);
   
   return res.json({message:"ok",candidate});
@@ -46,20 +48,32 @@ router.get('/single/:id', async(req, res)=> {
 catch{
  return res.json({message:"invalid ID"});
 }
+  }
+else{
+  return res.json({message:'Authentication erreo'})
+}
 });
 
 //candidate of specified organization
-router.get('/organization/:id', async(req, res)=> {
+router.get('/organization/:id/:Auth_id', async(req, res)=> {
+  if(req.params.Auth_id==1)
+  {
  try{
   let candidate = await candidates.find({organization_id:req.params.id}).populate('user').populate('post');
-  return res.json({message:"ok",candidate});
+  return res.json(candidate);
  }
  catch{
   return res.json({message:"invalid ID"});
  }
+}
+else{
+  return res.json({message:'Authentication Error'})
+}
 });
 
-router.get('/Organizations/:id', async(req, res)=> {
+router.get('/Organizations/:id/:Auth_id', async(req, res)=> {
+  if(req.params.Auth_id==1)
+  {
   try{
    let candidate = await candidates.find({organization_id:req.params.id}).populate('user').populate('post');
    return res.json(candidate);
@@ -67,18 +81,35 @@ router.get('/Organizations/:id', async(req, res)=> {
   catch{
    return res.json({message:"invalid ID"});
   }
+}
+else{
+  return res.json({message:'Authentication Error'})
+}
   
  
  });
 // Departmental Candidate
-router.get('/:org_id/:dep_id', async(req, res)=> {
+router.get('/:org_id/:dep_id/:Auth_id', async(req, res)=> {
+  
+  if(req.params.Auth_id==1)
+  {
+    try{
   let candidate = await candidates.find({organization_id:req.params.org_id,department_id:req.params.dep_id}).populate('user').populate('post');
   console.log(candidate);
   return res.json(candidate);
+    }catch{
+      return res.json({message:'Invalid Id'})
+    }
+  }
+  else{
+    return res.json({message:'Authentication Error'})
+  }
 });
 
 // candidate w.r.t post
-router.get('/post/:org_id/:p_id', async(req, res)=> {
+router.get('/post/:org_id/:p_id/:Auth_id', async(req, res)=> {
+  if(req.params.Auth_id==1)
+  {
 try{
   let candidate = await candidates.find({organization_id:req.params.org_id,post:req.params.p_id}).populate('user').populate('post');
   let user= await users.countDocuments({organization:req.params.org_id,role:'voter'});
@@ -87,6 +118,10 @@ try{
 catch{
   return res.json({message:'inavlid ID'});
 }
+  }
+  else{
+    return res.json({message:'Authentication Error'})
+  }
 });
 
 // Results
@@ -110,9 +145,11 @@ router.get('/Result/:org_id/:p_id/:Auth_id', async(req, res)=> {
 
 
 // add candidate
-router.post('/:org_id/:dep_id', upload.single('Symbol'),validatecandidates,async(req, res, next)=>
+router.post('/:org_id/:dep_id/:Auth_id', upload.single('Symbol'),validatecandidates, async(req, res, next)=>
 { 
-
+  if(req.params.Auth_id==1)
+  {
+    
   var cand = await candidates.findOne({email: req.body.email});
   if(cand) return res.status(400).json({message:'candidate already exists'});
   var email = await users.findOne({email:req.body.email});
@@ -129,27 +166,31 @@ router.post('/:org_id/:dep_id', upload.single('Symbol'),validatecandidates,async
     candidate.email=req.body.email
     candidate.phone_no=req.body.phone_no
     candidate.post=post
-    //candidate.Symbol= req.file.path
-    //candidate.Symbol.ContentType=req.file.mimetype
+   // candidate.Symbol=req.file.path
     candidate.organization_id = req.params.org_id
     candidate.department_id = req.params.dep_id
-   
     await candidate.save();
     return users.updateOne({email:req.body.email},{ role: 'candidate' }, function(err,success) {
       if (err){
         return res.status(400).json({message:"User Role not updated"});
       }
       else{
-        return res.status(400).json({message:"User Role updated"});
+        return res.json({message:"User Role updated"});
       }
     });
   
-    
+  
+}
+else{
+  return res.json({message: 'Authentication Error'})
+}
 });
 // Delete Candidate
 
-router.delete('/:id', async(req, res)=>
+router.delete('/:id/:Auth_id', async(req, res)=>
 {   
+  if(req.params.Auth_id==1)
+  {
     try{
       
     let user = await candidates.deleteOne( {_id: req.params.id});
@@ -158,15 +199,19 @@ router.delete('/:id', async(req, res)=>
     catch(err){
     return res.status(400).json("invalid Email");
       }
-
+    }
+    else{
+      return res.json({message:'Authentication Error'})
+    }
 });
 
 module.exports = router;
 
 // Submit Vote
-router.put('/vote/:id', async(req, res)=>
+router.put('/vote/:id/:Auth_id', async(req, res)=>
 {   
-  
+  if(req.params.Auth_id==1)
+  {
       try{
         const {email} = req.body;
       var Users = await candidates.findOne({_id :req.body.email});
@@ -205,5 +250,8 @@ router.put('/vote/:id', async(req, res)=>
     catch(err){
     return res.status(400).json({ message:"Unsuccessfull attempt"});
       }
-
+    }
+    else{
+      return res.json({message:'Authentication Error'})
+    }
 });

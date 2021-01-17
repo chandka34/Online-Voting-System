@@ -175,7 +175,7 @@ export default function MiniDrawer() {
         
         
    
-      <ListItem button component="a" href="/User">
+      <ListItem button component="a" href="/User/1">
       <ListItemIcon><PersonIcon/></ListItemIcon>
         <ListItemText primary="User" />
       
@@ -184,7 +184,7 @@ export default function MiniDrawer() {
      
 
       
-      <ListItem button component="a" href="/Event">
+      <ListItem button component="a" href="/Event/1">
       <ListItemIcon><EventIcon/></ListItemIcon>
         <ListItemText primary="Event" />
         
@@ -193,7 +193,7 @@ export default function MiniDrawer() {
         <Divider />
         <List>
           {['Orgnizations'].map((text, index) => (
-            <ListItem button component="a" href="/Organization">
+            <ListItem button component="a" href="/Organization/1">
               <ListItemIcon> <HomeWorkIcon/></ListItemIcon>
               <ListItemText primary={text} />
             </ListItem>

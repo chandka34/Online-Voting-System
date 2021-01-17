@@ -31,6 +31,8 @@ const NewEvent = (props) => {
   const [name, setUser] = React.useState("");
   const [SDate, setDate] = React.useState(new Date());
   const [EndDate, setEndDate] = React.useState(new Date());
+  const id=props.match.params.Auth_id
+  const classes = useStyles();
   const handleDateChange = (date)=> {
     setDate(date)
   }
@@ -41,13 +43,14 @@ const NewEvent = (props) => {
   
   return (
    
-    
+    <div className={classes.container}>
+    <div className={classes.child}>
     <Grid container spacing={12}>
       <Grid item xs={3}></Grid>
       <Grid item xs={3}>
       <Grid item xs={12}>
       <Menu/>
-        <h1>Add organization</h1>
+        <h1>Add Event</h1>
       </Grid>
         <TextField
           label="Name"
@@ -65,22 +68,24 @@ const NewEvent = (props) => {
         value={EndDate} onChange={handleEndDateChange} 
         label="End Date"/>
         </MuiPickersUtilsProvider>{ "" }
+        
         <Grid item xs={3}></Grid>
         <Grid item xs={3}></Grid>
         <Grid item xs={9}>
         <Button
         variant="contained"
+        fullwidth
         color="primary"
         onClick={(e) => {
           EventService
-            .addEvent({ name,SDate,EndDate})
+            .addEvent(id,{ name,SDate,EndDate})
             .then((data) => {
               console.log(data);
-              props.history.push("/Event/");
+              props.history.push("/Event/1");
             })
             .catch((err) => {
               console.log(err);
-              toast.error(err.response.data, {
+              toast.error(err.response.data.message, {
                 position: toast.POSITION.TOP_LEF});
            
             });
@@ -91,7 +96,8 @@ const NewEvent = (props) => {
       </Grid>
       </Grid>
     </Grid>
-  
+  </div>
+  </div>
   );
 };
 

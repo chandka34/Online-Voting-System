@@ -1,6 +1,0 @@
-{
-    "jwtPrivateKey": "jwtPrivateKey",
-    "PasswordReset": "passwordreset123",
-    "MAILGUN_APIKEY":"8b81bebb566a7d1a43644321c598f52e-2af183ba-34596d10",
-    "CLIENT_URL":"https://localhost:3030"
-}

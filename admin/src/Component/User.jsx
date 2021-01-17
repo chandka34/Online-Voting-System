@@ -27,12 +27,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const User = () => {
+const User = (props) => {
   const [User, setUser] = React.useState([]);
   const classes = useStyles();
+  const Auth= 1;
+  console.log({hello:Auth});
   const getData = () => {
     axios
-      .get("http://localhost:3030/users")
+      .get("http://localhost:3030/users/"+Auth)
       .then((res) => {
         setUser(res.data);
       })

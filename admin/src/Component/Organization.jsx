@@ -29,11 +29,11 @@ const useStyles = makeStyles((theme) => ({
 
 const Organizations = (props) => {
   const [Organizations, setOrganizations] = React.useState([]);
-
+ const Auth_id=1;
   const classes = useStyles();
   const getData = () => {
     OrganizationService
-      .getorganizations()
+      .getorganizations(Auth_id)
       .then((data) => {
         setOrganizations(data);
       })
@@ -46,7 +46,7 @@ const Organizations = (props) => {
   // console.log("Inside Organizations Component");
   const handleNewOrganizationClick = () => {
     console.log(props);
-    props.history.push("/Organization/New");
+    props.history.push("/Organization/New/"+Auth_id);
   };
   return (
     <div className={classes.container}>

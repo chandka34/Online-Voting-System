@@ -7,13 +7,26 @@ var feedbacks= require('../../models/feedback')
 
 
 /* GET feedbacks listing. */
-router.get('/', async(req, res)=> {
+router.get('/:Auth_id', async(req, res)=> {
+  if(req.params.Auth_id==1)
+  {
+    try{
   let feedback = await feedbacks.find();
   return res.json(feedback);
+    }
+    catch{
+      return res.json({message:'Something Went Wrong please try again'})
+    }
+  }
+  else{
+    return res.json({message:'Authentication Error'})
+  }
 });
 // add feedback
-router.post('/',validatefeedbacks , async(req, res)=>
+router.post('/:Auth_id',validatefeedbacks , async(req, res)=>
 {   
+  if(req.params.Auth_id==1)
+  {
     try{
          let Feed = new feedbacks();
          Feed.feedback = req.body.feedback  ;
@@ -23,27 +36,40 @@ router.post('/',validatefeedbacks , async(req, res)=>
     catch(err){
       return res.status(400).json({message:"unsuccessful"});
         }
+      }
+      else
+      {
+        return res.json({message:'Authentication Error'})
+      }
 });
 
 // get single record
-router.get('/:id', async(req, res)=>
+router.get('/:id/:Auth_id', async(req, res)=>
 {   
+  if(req.params.Auth_id==1)
+  {
     try{
     let feedback = await feedbacks.findById(req.params.id);
     if(!feedback) return res.status(400).json("id not present");
-    return res.json(feedback);
+    return res.json({message:'ok',feedback});
 }
     catch(err){ 
     return res.status(400).json("invalid id");
       }
+    }
+    else{
+      return res.json({message:'Authentication Error'})
+    }
 
 });
  
 //delete feedback
 
  
-router.delete('/:id', async(req, res)=>
+router.delete('/:id/:Auth_id', async(req, res)=>
 {   
+  if(req.params.Auth_id==1)
+  {
     try{
       
     let user = await feedbacks.deleteOne( {_id: req.params.id});
@@ -52,7 +78,10 @@ router.delete('/:id', async(req, res)=>
     catch(err){
     return res.status(400).json("invalid Id");
       }
-
+    }
+    else{
+      return res.json({message:'Authentication Error'})
+    }
 });
 
 module.exports = router;

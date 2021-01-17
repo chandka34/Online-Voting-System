@@ -30,12 +30,13 @@ const Candidates = (props) => {
   
   
   const org_id = props.match.params.org_id;
+  const Auth_id = props.match.params.Auth_id;
 
  
   const classes = useStyles();
   const getData = () => {
     CandidateService
-      .getAllCandidates(org_id)
+      .getAllCandidates(org_id,Auth_id)
       .then((data) => {
         setCandidates(data);
       })

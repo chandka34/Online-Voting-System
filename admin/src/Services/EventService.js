@@ -3,10 +3,10 @@ class EventService extends GenericService {
   constructor() {
     super();
   }
-  addEvent = (data) => this.post("Event", data);
-  deleteEvent = (_id) => this.delete("Event/" + _id);
-  updateEvent = (_id, data) => this.put("Event/" + _id, data);
-  getEvent = () => this.get("Event");
+  addEvent = (auth,data) => this.post("Event/"+auth,data);
+  deleteEvent = (_id,auth) => this.delete("Event/" + _id,+"/"+auth);
+  updateEvent = (_id,auth,data) => this.put("Event/" + _id+"/"+auth, data);
+  getEvent = (id) => this.get("Event/"+id);
   getSingleEvent = (id) => this.get("Event/" + id);
 }
 

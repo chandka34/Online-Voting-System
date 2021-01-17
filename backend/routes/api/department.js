@@ -5,13 +5,21 @@ var departments= require('../../models/departments')
 var organizations = require('../../models/organiztions');
 
 // get all departments w.r.t organization
-router.get('/:id', async(req, res)=> {
+router.get('/:id/:Auth_id', async(req, res)=> {
+  if(req.params.Auth_id==1)
+  {
   let department = await departments.find({organization_id:req.params.id})
   return res.json(department);
+  }
+  else{
+    return res.json({message:'Authentication Error'})
+  }
 });
 // add department
-router.post('/:id',validatedepartments , async(req, res)=>
+router.post('/:id/:Auth_id',validatedepartments , async(req, res)=>
 {   
+  if(req.params.Auth_id==1)
+  {
     var myquery = await organizations.findOne({_id : req.params.id});
     if(!myquery) return res.status(400).json('org not exist'); 
      var dep = await departments.findOne({department_id: req.body.department_id});
@@ -22,12 +30,17 @@ router.post('/:id',validatedepartments , async(req, res)=>
     department.organization_id = myquery;
     await department.save();
     return res.json(department);
-
+  }
+  else{
+    return res.json({message:'Authentication Error'})
+  }
 });
 
 // get single record
-router.get('/:id', async(req, res)=>
+router.get('/:id/:Auth_id', async(req, res)=>
 {   
+  if(req.params.Auth_id==1)
+  {
     try{
     let department = await departments.find( {department_id: req.params.id});
     if(!department) return res.status(400).json("id not present");
@@ -36,12 +49,18 @@ router.get('/:id', async(req, res)=>
     catch(err){
     return res.status(400).json("invalid id");
       }
+    }
+    else{
+      return res.json({message:'Autentication error'})
 
+    }
 }); 
 //delete department
 
-router.delete('/:id', async(req, res)=>
+router.delete('/:id/:Auth_id', async(req, res)=>
 {   
+  if(req.params.Auth_id==1)
+  {
     try{
         let dep = await departments.findByIdAndDelete( req.params.id)
     return res.json(dep);
@@ -49,7 +68,10 @@ router.delete('/:id', async(req, res)=>
     catch(err){
     return res.status(400).json("invalid ID");
       }
-
+  }
+  else{
+    return res.json({message:'Authentication Error'})
+  }
 });
      
 

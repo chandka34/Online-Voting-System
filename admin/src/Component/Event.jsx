@@ -29,11 +29,11 @@ const useStyles = makeStyles((theme) => ({
 
 const Events = (props) => {
   const [Events, setEvents] = React.useState([]);
- 
+ const Auth_id=1;
   const classes = useStyles();
   const getData = () => {
     EventService
-      .getEvent()
+      .getEvent(1)
       .then((data) => {
         setEvents(data);
       })
@@ -46,7 +46,7 @@ const Events = (props) => {
   // console.log("Inside Events Component");
   const handleNewEventClick = () => {
     console.log(props);
-    props.history.push("/Event/New");
+    props.history.push("/Event/New/"+Auth_id);
   };
   return (
     <div className={classes.container}>

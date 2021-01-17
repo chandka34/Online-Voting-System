@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import Menu from './../Component/Menu'
 const Singlefeedback = (props) => {
   const { Feedback, onDelete, history } = props;
+  const Auth_id= 1;
   console.log(props);
   return (
     <Grid item xs={12}>
@@ -18,7 +19,7 @@ const Singlefeedback = (props) => {
           color="secondary"
           onClick={(e) => {
             feedbackService
-              .deletefeedback(Feedback._id)
+              .deletefeedback(Feedback._id,Auth_id)
               .then((data) => {
                 console.log(data);
                 onDelete();

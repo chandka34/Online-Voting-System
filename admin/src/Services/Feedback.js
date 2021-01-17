@@ -3,10 +3,10 @@ class feedbackService extends GenericService {
   constructor() {
     super();
   }
-  addfeedback = (data) => this.post("feedback", data);
-  deletefeedback = (_id) => this.delete("feedback/" + _id);
+  addfeedback = (id,data) => this.post("feedback/",+"/"+id,data);
+  deletefeedback = (_id,id) => this.delete("feedback/" + _id+"/"+id);
   updatefeedback = (_id, data) => this.put("feedback/" + _id, data);
-  getfeedback = () => this.get("feedback");
+  getfeedback = (id) => this.get("feedback/"+id);
   getSinglefeedback = (id) => this.get("feedback/" + id);
 }
 

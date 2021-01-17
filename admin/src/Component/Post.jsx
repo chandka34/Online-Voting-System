@@ -28,10 +28,12 @@ const useStyles = makeStyles((theme) => ({
 const Posts = (props) => {
   const [Posts, setPosts] = React.useState([]);
   const id = props.match.params.id;
+  const Auth_id = props.match.params.Auth_id;
+
   const classes = useStyles();
   const getData = () => {
     PostService
-      .getPosts(id)
+      .getPosts(id,Auth_id)
       .then((data) => {
         setPosts(data);
       })
@@ -44,7 +46,7 @@ const Posts = (props) => {
   // console.log("Inside Posts Component");
   const handleNewPostClick = () => {
     console.log(props);
-    props.history.push("/Post/New/"+id);
+    props.history.push("/Post/New/"+id+"/"+Auth_id);
   };
   return (
     <div className={classes.container}>

@@ -31,11 +31,12 @@ const Candidates = (props) => {
   const id = props.match.params.id;
   const org_id = props.match.params.org_id;
   const dep_id = props.match.params.dep_id
+  const Auth_id = props.match.params.Auth_id
   console.log({message: props})
   const classes = useStyles();
   const getData = () => {
     CandidateService
-      .getCandidates(org_id,dep_id)
+      .getCandidates(org_id,dep_id,Auth_id)
       
       .then((data) => {
         setCandidates(data);
@@ -49,7 +50,7 @@ const Candidates = (props) => {
   // console.log("Inside Candidates Component");
   const handleNewCandidateClick = () => {
     console.log(props);
-    props.history.push("/Candidates/New/"+ org_id+"/"+ dep_id);
+    props.history.push("/Candidates/New/"+ org_id+"/"+ dep_id+"/"+Auth_id);
   };
   return (
     

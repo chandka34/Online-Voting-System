@@ -12,7 +12,7 @@ var candidateSchema= mongoose.Schema({
   phone_no: Number,
   Symbol: { 
     type: String,
-     default:'uploads\symbol.png'
+     default: 'uploads\symbol.png'
     },
       post:
       {
@@ -55,7 +55,9 @@ function validatecandidates(data)
         email: joi.string().email().required(),
         phone_no: joi.string().pattern(new RegExp('^((\\+92)|(0092))-{0,1}\\d{3}-{0,1}\\d{7}$|^\\d{11}$|^\d{4}-\d{7}$')).required(),
          post: joi.string().required(),
-         department_id: joi.string()
+         department_id: joi.string(),  
+         Symbol: joi.string()
+        
          
          //electrol_symbol: joi.required()
 

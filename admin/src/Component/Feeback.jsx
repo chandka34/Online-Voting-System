@@ -30,7 +30,7 @@ const Feedback = (props) => {
   const classes = useStyles();
   const getData = () => { 
       feedbackService
-      .getfeedback()
+      .getfeedback(1)
       .then((data) => {
         setfeedbacks(data);
       })

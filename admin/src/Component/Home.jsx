@@ -41,7 +41,7 @@ const useStyles = makeStyles({
 export default function SimpleCard() {
   const classes = useStyles();
   const bull = <span className={classes.bullet}>•</span>;
-
+const Auth=1;
   return (
 
     <div className={classes.container}>
@@ -54,7 +54,7 @@ export default function SimpleCard() {
             </Typography>
          </CardContent>
          <CardActions>
-            <Button size="small" href='/User'>See All</Button>
+            <Button size="small" href='/User/1'>See All</Button>
          </CardActions>
        </Card>{" "}
     <Card style={{backgroundColor: "red"}}>
@@ -66,7 +66,7 @@ export default function SimpleCard() {
       
       </CardContent>
       <CardActions>
-        <Button size="small" href='/Feedback'>See All</Button>
+        <Button size="small" href='/Feedback/1'>See All</Button>
       </CardActions>
     </Card>
        </div>

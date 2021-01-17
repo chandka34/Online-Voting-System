@@ -7,7 +7,7 @@ var departmentSchema= mongoose.Schema({
        {
          
          type: mongoose.Schema.Types.ObjectId,
-         ref: 'organization_id',
+         ref: 'organizations',
          required: true
        }
   
