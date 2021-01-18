@@ -16,7 +16,7 @@ const Complaints = ({navigation}) => {
     let [data, setData] = useState('');
 
 const submitFeedback =()=>{
-  fetch(''+baseUrl.base+'feedback', {
+  fetch(''+baseUrl.base+'feedback'+'/1', {
     method: 'POST',
     headers: {
       Accept: 'application/json',

@@ -53,7 +53,7 @@ const LoginScreen = props => {
 .then(responseJson => {
   //Hide Loader
   setLoading(false);
- console.log(responseJson.message);
+ console.log(responseJson);
   // If server response message same as Data Matched
   if (responseJson.message==="Login Successfull") {
     AsyncStorage.setItem('user_id', responseJson.Users._id);

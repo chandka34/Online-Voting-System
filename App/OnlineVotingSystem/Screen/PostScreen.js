@@ -26,7 +26,7 @@ useEffect(() => {
 
 
 const getPosts=(id)=>{
-    fetch(''+baseUrl.base+'posts/'+id)
+    fetch(''+baseUrl.base+'posts/'+id+'/1')
     .then((response) => response.json())
     .then((json) => {
       // return json.movies;

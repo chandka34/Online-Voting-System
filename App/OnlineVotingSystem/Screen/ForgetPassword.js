@@ -27,7 +27,7 @@ const submitForget =()=>{
     alert("Enter email!")
   }
   else{
-  fetch(''+baseUrl.base+'users/forgetPassword', {
+  fetch(''+baseUrl.base+'users/forgetPassword/1', {
     method: 'PUT',
     headers: {
       Accept: 'application/json',
@@ -72,7 +72,7 @@ const verifyPressed =()=>{
 
 const changePassword =()=>{
     console.log(mailCode + password )
-    fetch(''+baseUrl.base+'users/resetPassword', {
+    fetch(''+baseUrl.base+'users/resetPassword/1', {
         method: 'PUT',
         headers: {
           Accept: 'application/json',

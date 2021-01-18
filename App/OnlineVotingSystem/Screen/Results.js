@@ -32,7 +32,7 @@ const results = ({navigation}) => {
 
 
 const getResults=(organ,post)=>{
-  fetch(''+baseUrl.base+'candidate/post/'+organ+'/'+post)
+  fetch(''+baseUrl.base+'candidate/post/'+organ+'/'+post+'/1')
   .then((response) => response.json())
   .then((json) => {
     // return json.movies;
@@ -50,9 +50,13 @@ const getResults=(organ,post)=>{
 }
   
 const convertPercent =(vote)=>{
+  if(vote == 0){
+    return 0
+  }
+  console.log(vote+" "+totalUsers)
   let perc = (vote/totalUsers)*100
   perc = Math.round(perc)
-  console.log(perc)
+ 
   return perc
 }
 

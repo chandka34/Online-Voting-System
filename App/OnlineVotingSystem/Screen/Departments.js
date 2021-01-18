@@ -26,7 +26,7 @@ useEffect(() => {
 
 
 const getDepartments=(id)=>{
-  fetch(''+baseUrl.base+'department/'+id)
+  fetch(''+baseUrl.base+'department/'+id+'/1')
   .then((response) => response.json())
   .then((json) => {
     // return json.movies;

@@ -27,7 +27,7 @@ const candidates = ({navigation}) => {
   },[isPanelActive]);
 
 const getCandidateList=(organ,depart)=>{
-  fetch(''+baseUrl.base+'candidate/'+organ+'/'+depart)
+  fetch(''+baseUrl.base+'candidate/'+organ+'/'+depart+'/1')
   .then((response) => response.json())
   .then((json) => {
     // return json.movies;
@@ -70,13 +70,13 @@ const openProfile = (id)=>{
 }
 
 const getDetails=(id)=>{
-  fetch(''+baseUrl.base+'candidate/single/'+id)
+  fetch(''+baseUrl.base+'candidate/single/'+id+'/1')
   .then((response) => response.json())
   .then((json) => {
     // return json.movies;
     console.log(json.message)
     if(json.message=="ok"){
-      console.log(json.candidate)
+      console.log("candidate details ",  json.candidate)
       setDetails(json.candidate)
       setIsPanelActive(true);
     }
@@ -92,15 +92,20 @@ const getDetails=(id)=>{
    
 ]);
 const [details,setDetails]=useState(
-  {
-    
-    "Name": "",
-    "email": "",
-    "phone_no": "",
-    "post": "",
-    "Symbol": "",
-    
-  }
+  [
+    {
+      "Name": "", 
+      "Symbol": "", 
+      "__v": 0, 
+      "_id": "", 
+      "department_id": "", 
+      "email": "", 
+      "organization_id": "", 
+      "phone_no": "", 
+      "post": {"EndDate": "", "SDate": "", "__v": 0, "_id": "", "name": "", "organization_id": ""}, 
+      "votes": 0
+    }
+  ]
 );
   
 
@@ -112,16 +117,16 @@ const displayProfile =()=>{
    <View style={{borderWidth:2,borderRadius:12,borderColor:COLORS.PrimaryOne,marginTop:16,padding:16}}>
    <View style={{flexDirection:"row"}}>
    <View style={{height:80,width:80,borderRadius:80/2,borderColor:COLORS.PrimaryOne,borderWidth:2,elevation:5,marginTop:-50}}>
-           <Image source = {{uri:baseUrl.base+details.Symbol}}
+           <Image source = {{uri:baseUrl.base+details[0].Symbol}}
                style={{ width: 76,height: 76,alignSelf:"center",borderRadius:76/2}}/>
            </View>
-           <Text style={{marginLeft:12,fontSize:26,color:COLORS.PrimaryOne}}>{details.Name}</Text>
+           <Text style={{marginLeft:12,fontSize:26,color:COLORS.PrimaryOne}}>{details[0].Name}</Text>
    </View>
 
 
    <View style={{flexDirection:"row",margin:6}}>
-  <Text style={{fontSize:20}}>Post id : </Text>
-<Text style={{borderBottomWidth:1,fontSize:22}}>{details.post}</Text>
+  <Text style={{fontSize:20}}>Post : </Text>
+<Text style={{borderBottomWidth:1,fontSize:22}}>{details[0].post.name}</Text>
 </View>
 
  
@@ -133,12 +138,12 @@ const displayProfile =()=>{
 <View style={{alignSelf:"center"}}> 
 <View style={{flexDirection:"row",margin:6}}>
   <Text style={{fontSize:20}}>Email: </Text>
-<Text style={{borderBottomWidth:1,fontSize:22}}>{details.email}</Text>
+<Text style={{borderBottomWidth:1,fontSize:22}}>{details[0].email}</Text>
 </View>
 
 <View style={{flexDirection:"row",margin:6}}>
   <Text style={{fontSize:20}}>Contact: </Text>
-<Text style={{borderBottomWidth:1,fontSize:22}}>{details.phone_no}</Text>
+<Text style={{borderBottomWidth:1,fontSize:22}}>{details[0].phone_no}</Text>
 </View>
 
 

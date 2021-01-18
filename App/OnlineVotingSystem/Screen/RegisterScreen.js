@@ -49,7 +49,7 @@ const RegisterScreen = props => {
   }
 
   const activateAcount=()=>{
-    fetch(''+baseUrl.base+'users/ActivateAccount', {
+    fetch(''+baseUrl.base+'users/ActivateAccount/1', {
       method: 'POST',
       headers: {
         Accept: 'application/json',
@@ -119,7 +119,7 @@ const RegisterScreen = props => {
    setLoading(true);
 
 
-   fetch(''+baseUrl.base+'users/register', {
+   fetch(''+baseUrl.base+'users/register/1', {
     method: 'POST',
     headers: {
       Accept: 'application/json',

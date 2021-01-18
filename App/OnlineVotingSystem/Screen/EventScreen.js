@@ -19,7 +19,7 @@ const EventScreen = ({navigation}) => {
   },[electionClicked]);
 
 const setEventList =()=>{
-  fetch(''+baseUrl.base+'Event')
+  fetch(''+baseUrl.base+'Event'+'/1')
     .then((response) => response.json())
     .then((json) => {
       // return json.movies;

@@ -75,7 +75,7 @@ const SettingsScreen = ({navigation}) => {
     setLoading(true);
 
     let id = await AsyncStorage.getItem('user_id')
-    fetch(''+baseUrl.base+'users/'+id, {
+    fetch(''+baseUrl.base+'users/'+id+'/1', {
      method: 'PUT',
      headers: {
        Accept: 'application/json',

@@ -30,7 +30,7 @@ useEffect(() => {
 },[]);
 
 const getPostData =(id)=>{
-  fetch(''+baseUrl.base+'posts/'+id)
+  fetch(''+baseUrl.base+'posts/'+id+'/1')
   .then((response) => response.json())
   .then((json) => {
     // return json.movies;
@@ -60,7 +60,7 @@ const setSelectedNameData=(name,id)=>{
 
 const getNameData=(id)=>{
 
-  fetch(''+baseUrl.base+'candidate/post/'+organizationID+'/'+id)
+  fetch(''+baseUrl.base+'candidate/post/'+organizationID+'/'+id+'/1')
   .then((response) => response.json())
   .then((json) => {
     // return json.movies;
@@ -89,7 +89,7 @@ const getNameData=(id)=>{
   else{
 
 
-    fetch(''+baseUrl.base+'candidate/vote/'+user_id, {
+    fetch(''+baseUrl.base+'candidate/vote/'+user_id+'/1', {
       method: 'PUT',
       headers: {
         Accept: 'application/json',

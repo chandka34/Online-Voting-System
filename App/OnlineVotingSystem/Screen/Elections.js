@@ -30,12 +30,12 @@ const setOrganizationList = async()=>{
 
   let organizationID = await AsyncStorage.getItem('user_organization_id')
      // console.log("id = "+organizationID)
-  fetch(''+baseUrl.base+'organization/'+organizationID)
+  fetch(''+baseUrl.base+'organization/'+organizationID+'/1')
     .then((response) => response.json())
     .then((json) => {
       // return json.movies;
       console.log(json)
-      setOrganizationData(json)
+      setOrganizationData(json.organization)
     })
     .catch((error) => {
       console.error(error);
