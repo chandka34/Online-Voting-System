@@ -11,8 +11,7 @@ var config = require('config')
 var isAdmin = require('../../middlewares/admin')
 var CodeGenerator = require('node-code-generator');
 const mailgun = require("mailgun-js");
-const DOMAIN = 'sandboxb9ebe4aaaaba4802aad4bb6132d2981c.mailgun.org';
-const mg = mailgun({apiKey: config.get('MAILGUN_APIKEY'), domain: DOMAIN});
+const mg = mailgun({apiKey: config.get('MAILGUN_APIKEY'), domain: config.get('DOMAIN_KEY') });
 
 /* GET users listing. */
 router.get('/:Auth_id', async(req, res)=> 
