@@ -3,11 +3,31 @@ import { Grid, TextField, Button } from "@material-ui/core";
 import OrganizationService from "./../Services/OrganizationService";
 import { toast } from "react-toastify";
 import Menu from './../Component/Menu'
+import { makeStyles } from "@material-ui/core/styles";
+const useStyles = makeStyles((theme) => ({
+  addBtn: {
+    position: "absolute",
+    bottom: theme.spacing(2),
+    right: theme.spacing(2),
+  },
+  container: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    height: "500px",
+  },
+  child: {
+    width: "60%",
+  },
+}));
 const NewOrganization = (props) => {
   const [organization_name, setUser] = React.useState("");
   const [organization_id, setId] = React.useState("");
  const id= props.match.params.Auth_id
+ const classes = useStyles();
   return (
+    <div className={classes.container}>
+    <div className={classes.child}>
     <Grid container spacing={3}>
       <Grid item xs={12}>
       <Menu/>
@@ -57,6 +77,8 @@ const NewOrganization = (props) => {
         </Button>
       </Grid>
     </Grid>
+    </div>
+    </div>
   );
 };
 
